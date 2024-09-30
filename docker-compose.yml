@@ -1,0 +1,18 @@
+services:
+  jupyter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    working_dir: /app
+    volumes:
+      - ./src:/app
+    ports:
+      - "8888:8888"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [ gpu ]
